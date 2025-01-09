@@ -39,7 +39,7 @@
         </div>
         <div class="col-sm-4">
             {% if post and post.image_path %}
-            <p><img src="{{ imageSource + '/' + post.image_path + '?' + config.BLOB_SAS_TOKEN }}" width="250" height="250" /></p>
+            <p><img src="{{ imageSource }}/{{ post.image_path }}?{{ sas_token }}" width="250" height="250" /></p>
             {% endif %}
 
         </div>
