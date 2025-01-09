@@ -6,6 +6,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_session import Session
+from flask_talisman import Talisman
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from config import Config
@@ -20,6 +21,9 @@ Session(app)
 # Initialize Flask-Login
 login = LoginManager(app)
 login.login_view = 'login'
+
+# Enforce HTTPS
+Talisman(app)
 
 # Import views after app is initialized to avoid circular imports
 from FlaskWebProject import views, models
