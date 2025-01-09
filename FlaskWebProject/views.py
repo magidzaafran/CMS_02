@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 TOKEN_CACHE = "token_cache"
 
 # Azure Blob Storage URL for images
-imageSourceUrl = f"https://{app.config['BLOB_ACCOUNT']}.blob.core.windows.net/{app.config['BLOB_CONTAINER']}/"
+imageSourceUrl = f"https://{app.config['BLOB_ACCOUNT']}.blob.core.windows.net/{app.config['BLOB_CONTAINER']}"
 
 @app.route('/')
 @app.route('/home')
@@ -78,7 +78,8 @@ def post(id):
         title='Edit Post',
         form=form,
         post=post,
-        imageSource=imageSourceUrl
+        imageSource=imageSourceUrl,
+        sas_token=app.config['BLOB_SAS_TOKEN']  # Add this line
     )
 
 @app.route('/new_post', methods=['GET', 'POST'])
