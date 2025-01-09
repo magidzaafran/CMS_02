@@ -31,3 +31,6 @@ from FlaskWebProject import views, models
 @login.user_loader
 def load_user(id):
     return models.User.query.get(int(id))
+
+if __name__ == '__main__':
+    app.run(ssl_context=('path/to/cert.pem', 'path/to/key.pem'))
