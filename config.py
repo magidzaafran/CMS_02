@@ -41,7 +41,7 @@ class Config(object):
     # Microsoft Authentication (MSAL)
     CLIENT_SECRET = os.environ.get('CLIENT_SECRET') or "IhC8Q~YAAGO_C6Nvq1i4Gvtw45KLaHDyxbqtebea"
     CLIENT_ID = os.environ.get('CLIENT_ID') or "79b517eb-b734-4d7d-b831-4173fe9cf6fc"
-    AUTHORITY = os.environ.get('AUTHORITY') or "http://login.microsoftonline.com/common"
+    AUTHORITY = os.environ.get('AUTHORITY') or "https://login.microsoftonline.com/common"
     REDIRECT_PATH = os.environ.get('REDIRECT_PATH') or "/getAToken"
 
     # Microsoft Graph API Permissions Scope
