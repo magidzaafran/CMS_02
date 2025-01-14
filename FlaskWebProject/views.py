@@ -16,12 +16,12 @@ from FlaskWebProject.forms import LoginForm, PostForm
 from FlaskWebProject.models import User, Post
 from config import Config
 
-# Configure logging
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.INFO,  # This ensures INFO messages are shown
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
 
 # Constants
 TOKEN_CACHE = "token_cache"
@@ -135,28 +135,23 @@ def new_post():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        logger.info(f"Already authenticated user {current_user.username} accessing login page")
+        logger.info(f'User {current_user.username} is already authenticated')
         return redirect(url_for('home'))
     
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            logger.warning(f"Failed login attempt for username: {form.username.data}")
+            logger.warning(f'Failed login attempt for username: {form.username.data}')
             flash('Invalid username or password')
             return redirect(url_for('login'))
         
         login_user(user, remember=form.remember_me.data)
-        logger.info(f"Successful login for user: {user.username}")
+        logger.info(f'Successful login for user: {user.username}')
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('home')
         return redirect(next_page)
-    
-    session["state"] = str(uuid.uuid4())
-    auth_url = _build_auth_url(scopes=Config.SCOPE, state=session["state"])
-    logger.info("User accessing login page")
-    return render_template('login.html', title='Sign In', form=form, auth_url=auth_url)
 
 @app.route(Config.REDIRECT_PATH)
 def authorized():
