@@ -39,3 +39,6 @@ flask-login==0.6.3
 config==0.5.1
 colorama==0.4.6
 flask-talisman==0.8.1
+azure-identity
+bootstrap-flask
+
